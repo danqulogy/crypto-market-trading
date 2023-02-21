@@ -19,14 +19,11 @@ class CoinApiService(BaseHttpService):
         }
         return self.get(url, headers=self.headers, params=params)
 
-
     def get_single_exchange(self, exchange_id: str = 'BTC') -> dict:
         url = f"https://rest-sandbox.coinapi.io/v1/exchanges/{exchange_id}"
-        results = get(url=url, headers=self.headers)
-        return dict(results.json())
+        return self.get(url=url, headers=self.headers)
 
     def get_exchange_rate(self, baseCurrency: str = 'BTC', quoteCurrency: str = 'USD') -> dict:
         url = f"https://rest-sandbox.coinapi.io/v1/exchangerate/{baseCurrency}/{quoteCurrency}"
         results = get(url=url, headers=self.headers)
         return dict(results.json())
-

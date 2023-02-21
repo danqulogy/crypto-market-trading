@@ -16,3 +16,8 @@ async def get_exchange_rate(base_asset: str, quote_asset: str):
 async def get_exchanges():
     service = CoinApiService()
     return service.get_exchanges()
+
+@app.get("/exchanges/{exchange_id}")
+async def get_single_exchange(exchange_id:str):
+    service = CoinApiService()
+    return service.get_single_exchange(exchange_id)
