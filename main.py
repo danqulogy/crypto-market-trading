@@ -7,9 +7,9 @@ app = FastAPI()
 
 
 @app.get("/")
-async def root():
+async def get_exchange_rate(base_asset: str, quote_asset: str):
     service = CoinApiService()
-    return service.get_exchange_rate('BTC', 'USD')
+    return service.get_exchange_rate(base_asset, quote_asset)
 
 
 @app.get("/exchanges")

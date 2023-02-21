@@ -3,18 +3,17 @@ from typing import List
 
 from requests import get
 
+from base_http_service import BaseHttpService
 
-class CoinApiService:
+
+class CoinApiService(BaseHttpService):
     API_KEY = 'E26BA322-3979-4B92-913B-E62A7AF5AB0B'
     headers = {'X-CoinAPI-Key': API_KEY}
 
     def get_exchanges(self) -> List[dict]:
         url = f"https://rest-sandbox.coinapi.io/v1/exchanges"
-        results = get(url=url, headers=self.headers)
-        print(results.json())
-        parsed = loads(results.content)
-        print(type(parsed[0]))
-        return parsed
+        return self.get(url, headers=self.headers)
+
 
     def get_single_exchange(self, exchange_id: str = 'BTC') -> dict:
         url = f"https://rest-sandbox.coinapi.io/v1/exchanges/{exchange_id}"
@@ -30,21 +29,3 @@ class CoinApiService:
         results = get(url=url, headers=self.headers)
         return dict(results.json())
 
-    def make_api_call(url:str, headers, params):
-        # Making GET request
-        res = get(url=url, headers=headers, params=params)
-
-        # Checking if API returns any errors in the response
-        if res.status_code != 200:
-            # Printing custom status error message
-            print(res)
-            return
-
-        # Printing custom header elements header element
-        print(res.headers)
-
-        # Printing a clean JSON response
-        print("\nJSON Response:")
-        parsed_json = loads(res.content)
-        formatted_json = dumps(parsed_json, indent=4)
-        print(formatted_json)
