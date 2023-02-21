@@ -10,8 +10,19 @@ class CoinApiService(BaseHttpService):
     API_KEY = 'E26BA322-3979-4B92-913B-E62A7AF5AB0B'
     headers = {'X-CoinAPI-Key': API_KEY}
 
-    def get_assets(self) -> dict:
+    def get_assets(self, allowed_assets=None) -> dict:
         url = f"https://rest-sandbox.coinapi.io/v1/assets"
+        params = {
+            "filter_exchange_id": allowed_assets
+        }
+        return self.get(url=url, headers=self.headers, params=params)
+
+    def get_single_asset(self, asset_id: str = 'USD') -> dict:
+        url = f"https://rest-sandbox.coinapi.io/v1/assets/{asset_id}"
+        return self.get(url=url, headers=self.headers)
+
+    def get_asset_icons(self, icon_size: int = 12) -> dict:
+        url = f"https://rest-sandbox.coinapi.io/v1/assets/icons{icon_size}"
         return self.get(url=url, headers=self.headers)
 
     def get_exchange_icons(self, icon_size: int = 12) -> dict:

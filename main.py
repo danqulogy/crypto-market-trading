@@ -34,3 +34,15 @@ async def get_exchange_icons():
 async def get_assets():
     service = CoinApiService()
     return service.get_assets()
+
+
+@app.get("/assets/{asset_id}")
+async def get_single_asset(asset_id: str):
+    service = CoinApiService()
+    return service.get_single_asset(asset_id)
+
+
+@app.get("/assets/icons")
+async def get_asset_icons():
+    service = CoinApiService()
+    return service.get_exchange_icons()
