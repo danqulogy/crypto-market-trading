@@ -12,16 +12,15 @@ class CoinApiService(BaseHttpService):
 
     def get_exchanges(self) -> List[dict]:
         url = f"https://rest-sandbox.coinapi.io/v1/exchanges"
-        return self.get(url, headers=self.headers)
+        params = {
+            "filter_exchange_id": ["ECB", "COINBASE"]
+        }
+        return self.get(url, headers=self.headers, params=params)
 
 
     def get_single_exchange(self, exchange_id: str = 'BTC') -> dict:
         url = f"https://rest-sandbox.coinapi.io/v1/exchanges/{exchange_id}"
-        params = {
-            "filter_exchange_id": []
-        }
-
-        results = get(url=url, headers=self.headers, params=params)
+        results = get(url=url, headers=self.headers)
         return dict(results.json())
 
     def get_exchange_rate(self, baseCurrency: str = 'BTC', quoteCurrency: str = 'USD') -> dict:
