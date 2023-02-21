@@ -21,3 +21,8 @@ async def get_exchanges():
 async def get_single_exchange(exchange_id:str):
     service = CoinApiService()
     return service.get_single_exchange(exchange_id)
+
+@app.get("/exchanges/icons")
+async def get_exchange_icons():
+    service = CoinApiService()
+    return service.get_exchange_icons()

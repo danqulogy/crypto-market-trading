@@ -10,6 +10,10 @@ class CoinApiService(BaseHttpService):
     API_KEY = 'E26BA322-3979-4B92-913B-E62A7AF5AB0B'
     headers = {'X-CoinAPI-Key': API_KEY}
 
+    def get_exchange_icons(self, icon_size: int = 12) -> dict:
+        url = f"https://rest-sandbox.coinapi.io/v1/exchanges/icons{icon_size}"
+        return self.get(url=url, headers=self.headers)
+
     def get_exchanges(self, allowed_exchanges=None) -> List[dict]:
         if allowed_exchanges is None:
             allowed_exchanges = []
