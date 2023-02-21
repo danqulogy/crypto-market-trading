@@ -1,4 +1,5 @@
 from json import loads, dumps
+from typing import List
 
 from requests import get
 
@@ -7,11 +8,13 @@ class CoinApiService:
     API_KEY = 'E26BA322-3979-4B92-913B-E62A7AF5AB0B'
     headers = {'X-CoinAPI-Key': API_KEY}
 
-    async def get_exchanges(self) -> dict:
+    def get_exchanges(self) -> List[dict]:
         url = f"https://rest-sandbox.coinapi.io/v1/exchanges"
         results = get(url=url, headers=self.headers)
         print(results.json())
-        return dict(results.json())
+        parsed = loads(results.content)
+        print(type(parsed[0]))
+        return parsed
 
     def get_single_exchange(self, exchange_id: str = 'BTC') -> dict:
         url = f"https://rest-sandbox.coinapi.io/v1/exchanges/{exchange_id}"
