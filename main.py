@@ -12,6 +12,7 @@ async def root():
     return service.get_exchange_rate('BTC', 'USD')
 
 
-@app.get("/hello/{name}")
-async def say_hello(name: str):
-    return {"message": f"Hello {name}"}
+@app.get("/exchanges")
+async def get_exchanges():
+    service = CoinApiService()
+    return service.get_exchanges()
